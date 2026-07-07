@@ -286,6 +286,8 @@ footer{background:var(--ink);color:var(--cream);padding:6rem 2rem 2.5rem;positio
 }
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  /* animações infinitas: parar, não encurtar (0.01ms infinito vira estrobo) */
+  .marquee__track,.grain,.hero-float,.hero-scroll::after,.ship-fill{animation:none!important}
 }
 </style>
 </head>
