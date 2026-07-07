@@ -249,6 +249,60 @@ footer{background:var(--ink);color:var(--cream);padding:6rem 2rem 2.5rem;positio
 .status-page .box a{display:inline-block;background:var(--ink);color:var(--cream);text-decoration:none;font-weight:800;padding:.95rem 2.2rem;border-radius:999px;transition:background .25s}
 .status-page .box a:hover{background:var(--rose)}
 
+/* ============ PEDIDO (cliente) ============ */
+.order-page{min-height:100svh;max-width:680px;margin:0 auto;padding:2rem 1.5rem 4rem}
+.order-head{padding:1rem 0 2.5rem}
+.order-box h1{font-family:var(--font-display);font-weight:500;font-size:clamp(2.2rem,6vw,3.6rem);letter-spacing:-.03em;margin:.4rem 0 2rem}
+.order-box h1 em{font-style:italic;color:var(--rose)}
+.timeline{list-style:none;margin:0 0 2rem;position:relative}
+.timeline li{display:flex;align-items:center;gap:1rem;padding:.9rem 0;color:rgba(30,14,22,.45);position:relative}
+.timeline li .dot{width:46px;height:46px;border-radius:50%;background:var(--cream-2);display:grid;place-items:center;font-size:1.2rem;flex-shrink:0;filter:grayscale(1);opacity:.55;transition:all .3s}
+.timeline li.done{color:var(--ink);font-weight:700}
+.timeline li.done .dot{background:var(--rose-soft);filter:none;opacity:1;box-shadow:0 6px 16px -6px rgba(226,59,109,.5)}
+.timeline li:not(:last-child)::after{content:"";position:absolute;left:22px;top:calc(50% + 26px);height:calc(100% - 30px);width:2px;background:rgba(30,14,22,.12)}
+.timeline li.done:not(:last-child)::after{background:var(--rose)}
+.tracking{background:var(--white);border-radius:16px;padding:1.1rem 1.3rem;margin-bottom:2rem;display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;font-size:.95rem}
+.tracking code{background:var(--rose-soft);padding:.25rem .6rem;border-radius:8px;font-weight:700}
+.tracking a{color:var(--rose);font-weight:700;text-decoration:none;margin-left:auto}
+.order-items{border-top:1px solid rgba(30,14,22,.12);margin-bottom:1.5rem}
+.order-item{display:flex;justify-content:space-between;gap:1rem;padding:.8rem 0;border-bottom:1px dashed rgba(30,14,22,.12);font-size:.95rem}
+.order-item.total{border-bottom:none;font-weight:800;font-size:1.1rem}
+.order-date{font-size:.82rem;color:rgba(30,14,22,.5);margin-bottom:2rem}
+.order-back{display:inline-block;background:var(--ink);color:var(--cream);text-decoration:none;font-weight:800;padding:.85rem 2rem;border-radius:999px;transition:background .25s}
+.order-back:hover{background:var(--rose)}
+.order-link{color:var(--rose);font-weight:800}
+
+/* ============ ADMIN ============ */
+.admin{max-width:980px;margin:0 auto;padding:1.5rem;min-height:100svh}
+.admin-head{display:flex;justify-content:space-between;align-items:center;padding-bottom:1.5rem;border-bottom:1px solid rgba(30,14,22,.1);margin-bottom:1.5rem}
+.admin-head small{font-family:var(--font-body);font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--rose)}
+.admin-logout{background:none;border:1.5px solid rgba(30,14,22,.25);border-radius:999px;padding:.45rem 1.1rem;font-weight:700;font-size:.82rem}
+.admin-logout:hover{border-color:var(--rose);color:var(--rose)}
+.admin-warn{background:var(--rose-soft);color:var(--rose-deep);padding:.9rem 1.2rem;border-radius:12px;font-size:.9rem;font-weight:600;margin-bottom:1.2rem}
+.admin-login{display:flex;gap:.7rem;justify-content:center;margin-top:1.5rem}
+.admin-login input{border:1.5px solid rgba(30,14,22,.25);border-radius:12px;padding:.8rem 1rem;font:inherit;background:var(--white)}
+.admin-login button{background:var(--ink);color:var(--cream);border:none;border-radius:12px;padding:.8rem 1.6rem;font-weight:800}
+.admin-login button:hover{background:var(--rose)}
+.admin-orders{display:flex;flex-direction:column;gap:.7rem}
+.admin-order{background:var(--white);border-radius:16px;overflow:hidden}
+.admin-order summary{display:flex;align-items:center;gap:1rem;padding:1rem 1.2rem;cursor:pointer;flex-wrap:wrap;font-size:.92rem;list-style:none}
+.admin-order summary::-webkit-details-marker{display:none}
+.admin-order-body{padding:0 1.2rem 1.2rem;border-top:1px dashed rgba(30,14,22,.12)}
+.admin-order-body ul{list-style:none;padding:.9rem 0;font-size:.9rem;display:flex;flex-direction:column;gap:.3rem}
+.admin-form{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin-top:.5rem}
+.admin-form select,.admin-form input{border:1.5px solid rgba(30,14,22,.2);border-radius:10px;padding:.55rem .8rem;font:inherit;font-size:.88rem;background:var(--cream)}
+.admin-form input{flex:1;min-width:180px}
+.admin-form button{background:var(--ink);color:var(--cream);border:none;border-radius:10px;padding:.55rem 1.3rem;font-weight:800;font-size:.88rem}
+.admin-form button:hover{background:var(--rose)}
+.muted{color:rgba(30,14,22,.5);font-size:.82rem;text-decoration:none}
+.status-pill{font-size:.7rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:.3rem .7rem;border-radius:999px;background:var(--cream-2)}
+.s-pago{background:#D3F3DF;color:#14683A}
+.s-pendente{background:#FFF1CC;color:#8A6100}
+.s-separando{background:#E0ECFF;color:#1D4FA1}
+.s-enviado{background:#EADCFF;color:#5A2EA6}
+.s-entregue{background:#D3F3DF;color:#14683A}
+.s-cancelado{background:#FFE0E0;color:#A11D1D}
+
 /* ============ RESPONSIVE ============ */
 @media(max-width:900px){
   nav.main-nav{display:none}

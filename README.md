@@ -32,8 +32,23 @@ redirect Checkout Pro → retorno em `/obrigado` → webhook `POST /api/mp-webho
 4. Cadastre produtos no Studio — o site passa a ler do Sanity
    (produtos com `stock > 0`, revalidação a cada 60s)
 
+## Pedidos (Supabase)
+
+1. Crie um projeto em https://supabase.com
+2. Rode `supabase/migrations/001_orders.sql` no SQL Editor
+3. Preencha `SUPABASE_URL` e `SUPABASE_SERVICE_ROLE_KEY` (Project Settings → API)
+4. Defina `ADMIN_PASSWORD` para o painel
+
+Fluxo do pedido: checkout cria pedido `pendente` → webhook do MP promove
+para `pago` → admin atualiza `separando/enviado/entregue` + código de
+rastreio → cliente acompanha em `/pedido/{token}` (link mostrado no
+/obrigado — sem login).
+
+- **Painel admin**: `/admin` (senha do env; cookie válido por 7 dias)
+- **Cliente**: `/pedido/{token}` — timeline, itens, rastreio com link Correios
+
 ## Roadmap
 
 - [x] Fase 1 — loja + checkout Mercado Pago sandbox
-- [ ] Fase 2 — pedidos no Supabase, painel admin (status + código de rastreio), página de acompanhamento do cliente via link com token
-- [ ] Fase 3 — Melhor Envio (cotação de frete, etiqueta, rastreio automático)
+- [x] Fase 2 — pedidos no Supabase, painel admin (status + código de rastreio), página de acompanhamento do cliente via link com token
+- [ ] Fase 3 — Melhor Envio (cotação de frete, etiqueta, rastreio automático) + e-mail transacional

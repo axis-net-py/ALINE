@@ -16,8 +16,10 @@ const COPY: Record<string, { title: React.ReactNode; text: string }> = {
   },
 };
 
-export default async function Obrigado({ searchParams }: { searchParams: Promise<{ status?: string }> }) {
-  const { status } = await searchParams;
+export default async function Obrigado({
+  searchParams,
+}: { searchParams: Promise<{ status?: string; pedido?: string }> }) {
+  const { status, pedido } = await searchParams;
   const copy = COPY[status ?? ""] ?? COPY.pending;
   const paid = status === "success";
   return (
@@ -25,6 +27,13 @@ export default async function Obrigado({ searchParams }: { searchParams: Promise
       <div className="box">
         <h1>{copy.title}</h1>
         <p>{copy.text}</p>
+        {pedido && status !== "failure" && (
+          <p>
+            Acompanhe tudo por aqui:{" "}
+            <Link className="order-link" href={`/pedido/${pedido}`}>página do seu pedido</Link>
+            {" "}— salve o link!
+          </p>
+        )}
         <Link href="/">Voltar à loja</Link>
       </div>
       {paid && <ClearCart />}

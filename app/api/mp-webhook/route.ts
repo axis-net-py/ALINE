@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
+import { updateOrder } from "@/lib/orders";
 
-// Webhook do Mercado Pago: notificação de pagamento.
-// Fase 1: consulta o pagamento e loga. Fase 2: gravar pedido no
-// Supabase (orders/order_items) e baixar estoque no Sanity.
+// Webhook do Mercado Pago: consulta o pagamento e atualiza o pedido
+// no Supabase via external_reference (id do pedido).
 export async function POST(req: Request) {
   const token = process.env.MERCADOPAGO_ACCESS_TOKEN;
   if (!token) return NextResponse.json({ ok: true }); // nada a fazer
@@ -20,14 +20,25 @@ export async function POST(req: Request) {
     });
     if (res.ok) {
       const payment = await res.json();
-      // ponytail: log estruturado por enquanto; persistência em Supabase na Fase 2
       console.log("[mp-webhook] pagamento", {
         id: payment.id,
         status: payment.status,
-        amount: payment.transaction_amount,
-        email: payment.payer?.email,
-        items: payment.additional_info?.items?.map((i: { id: string; quantity: number }) => ({ id: i.id, qty: i.quantity })),
+        ref: payment.external_reference,
       });
+      if (payment.external_reference) {
+        const map: Record<string, "pago" | "cancelado"> = {
+          approved: "pago",
+          cancelled: "cancelado",
+          rejected: "cancelado",
+          refunded: "cancelado",
+        };
+        const status = map[payment.status as string];
+        await updateOrder(payment.external_reference, {
+          mp_payment_id: String(payment.id),
+          customer_email: payment.payer?.email ?? null,
+          ...(status ? { status } : {}),
+        });
+      }
     }
   }
   // 200 sempre: MP reenvia em caso de erro, e não queremos loop de retry
