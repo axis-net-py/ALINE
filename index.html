@@ -289,7 +289,7 @@ footer{background:var(--ink);color:var(--cream);padding:6rem 2rem 2.5rem;positio
   /* animações infinitas decorativas: parar, não encurtar (0.01ms infinito vira estrobo) */
   .grain,.hero-float,.hero-scroll::after,.ship-fill{animation:none!important}
   /* marquee roda sempre, devagar */
-  .marquee__track{animation-duration:35s!important}
+  .marquee__track{animation-duration:22s!important}
 }
 </style>
 </head>
@@ -496,8 +496,8 @@ document.addEventListener("mousemove",e=>{
 /* ============ MARQUEE ============ */
 const marqueeItems=`<span>Frete grátis acima de R$199</span><em>✦</em><span>Até 40% off em batons</span><em>✦</em><span>6x sem juros</span><em>✦</em><span>Pix com 5% de desconto</span><em>✦</em>`;
 $("marqueeTrack").innerHTML=marqueeItems+marqueeItems;
-/* velocidade constante: ~35px/s independente da largura do conteúdo */
-$("marqueeTrack").style.animationDuration=($("marqueeTrack").scrollWidth/2/35)+"s";
+/* velocidade constante: ~55px/s independente da largura do conteúdo */
+$("marqueeTrack").style.animationDuration=($("marqueeTrack").scrollWidth/2/55)+"s";
 
 /* ============ REVEAL ON SCROLL ============ */
 const io=new IntersectionObserver(entries=>{
