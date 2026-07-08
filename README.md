@@ -51,5 +51,5 @@ rastreio → cliente acompanha em `/pedido/{token}` (link mostrado no
 ## Roadmap
 
 - [x] Fase 1 — loja + checkout Mercado Pago sandbox
-- [x] Fase 2 — pedidos no Supabase, painel admin (status + código de rastreio), página de acompanhamento do cliente via link com token
+- [x] Fase 2 — pedidos no Neon Postgres, painel admin (status + código de rastreio), página de acompanhamento do cliente via link com token
 - [ ] Fase 3 — Melhor Envio (cotação de frete, etiqueta, rastreio automático) + e-mail transacional
