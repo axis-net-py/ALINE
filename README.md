@@ -32,12 +32,13 @@ redirect Checkout Pro → retorno em `/obrigado` → webhook `POST /api/mp-webho
 4. Cadastre produtos no Studio — o site passa a ler do Sanity
    (produtos com `stock > 0`, revalidação a cada 60s)
 
-## Pedidos (Supabase)
+## Pedidos (Neon Postgres)
 
-1. Crie um projeto em https://supabase.com
-2. Rode `supabase/migrations/001_orders.sql` no SQL Editor
-3. Preencha `SUPABASE_URL` e `SUPABASE_SERVICE_ROLE_KEY` (Project Settings → API)
-4. Defina `ADMIN_PASSWORD` para o painel
+Banco já provisionado: projeto Neon **aline** (`mute-mud-62821640`),
+schema em `db/001_orders.sql` aplicado. Basta:
+
+1. Copiar a connection string do projeto (console.neon.tech) para `DATABASE_URL`
+2. Definir `ADMIN_PASSWORD` para o painel
 
 Fluxo do pedido: checkout cria pedido `pendente` → webhook do MP promove
 para `pago` → admin atualiza `separando/enviado/entregue` + código de

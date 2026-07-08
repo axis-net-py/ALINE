@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import { updateOrder } from "@/lib/orders";
+import { updateOrderPayment } from "@/lib/orders";
 
 // Webhook do Mercado Pago: consulta o pagamento e atualiza o pedido
-// no Supabase via external_reference (id do pedido).
+// no banco via external_reference (id do pedido).
 export async function POST(req: Request) {
   const token = process.env.MERCADOPAGO_ACCESS_TOKEN;
   if (!token) return NextResponse.json({ ok: true }); // nada a fazer
@@ -33,7 +33,7 @@ export async function POST(req: Request) {
           refunded: "cancelado",
         };
         const status = map[payment.status as string];
-        await updateOrder(payment.external_reference, {
+        await updateOrderPayment(payment.external_reference, {
           mp_payment_id: String(payment.id),
           customer_email: payment.payer?.email ?? null,
           ...(status ? { status } : {}),

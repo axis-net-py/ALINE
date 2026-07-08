@@ -31,7 +31,7 @@ export default async function Admin({ searchParams }: { searchParams: Promise<{ 
   }
 
   const orders = await listOrders();
-  const supabaseOff = !process.env.SUPABASE_URL;
+  const dbOff = !process.env.DATABASE_URL;
 
   return (
     <div className="admin">
@@ -40,8 +40,8 @@ export default async function Admin({ searchParams }: { searchParams: Promise<{ 
         <form action={logout}><button className="admin-logout">Sair</button></form>
       </header>
 
-      {supabaseOff && <p className="admin-warn">Supabase não configurado — pedidos não estão sendo gravados.</p>}
-      {orders.length === 0 && !supabaseOff && <p className="admin-warn">Nenhum pedido ainda.</p>}
+      {dbOff && <p className="admin-warn">Banco não configurado (DATABASE_URL) — pedidos não estão sendo gravados.</p>}
+      {orders.length === 0 && !dbOff && <p className="admin-warn">Nenhum pedido ainda.</p>}
 
       <div className="admin-orders">
         {orders.map((o) => (

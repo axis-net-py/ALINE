@@ -1,5 +1,6 @@
--- Pedidos da loja ALINE.
--- Aplicar no SQL Editor do Supabase ou via `supabase db push`.
+-- Pedidos da loja ALINE (Neon Postgres).
+-- Já aplicado no projeto Neon "aline" (mute-mud-62821640); guardado
+-- aqui como referência/replay.
 
 create table if not exists orders (
   id uuid primary key default gen_random_uuid(),
@@ -26,7 +27,3 @@ create table if not exists order_items (
 
 create index if not exists order_items_order_id on order_items(order_id);
 create index if not exists orders_created_at on orders(created_at desc);
-
--- RLS ligado sem policies: acesso apenas pela service role (API do site).
-alter table orders enable row level security;
-alter table order_items enable row level security;

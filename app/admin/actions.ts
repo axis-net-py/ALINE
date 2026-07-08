@@ -3,7 +3,7 @@ import { createHmac, timingSafeEqual } from "node:crypto";
 import { cookies } from "next/headers";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { STATUSES, updateOrder, type OrderStatus } from "@/lib/orders";
+import { STATUSES, updateOrderAdmin, type OrderStatus } from "@/lib/orders";
 
 // Cookie = HMAC da senha com ela mesma como chave: valor estável,
 // não expõe a senha. Suficiente para painel de 1 pessoa; trocar por
@@ -48,6 +48,6 @@ export async function saveOrder(formData: FormData) {
   const status = String(formData.get("status")) as OrderStatus;
   const tracking = String(formData.get("tracking") ?? "").trim();
   if (!STATUSES.includes(status)) return;
-  await updateOrder(id, { status, tracking_code: tracking || null });
+  await updateOrderAdmin(id, status, tracking || null);
   revalidatePath("/admin");
 }
