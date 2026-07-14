@@ -24,11 +24,16 @@ export default defineType({
     defineField({ name: "badge", title: "Selo (ex: -20%, Best-seller)", type: "string" }),
     defineField({ name: "emoji", title: "Emoji (placeholder visual)", type: "string", initialValue: "💄" }),
     defineField({
+      name: "imageUrl",
+      title: "URL da foto do produto",
+      type: "url",
+      description: "Foto do fornecedor ou própria; sem foto o card usa emoji + gradiente",
+    }),
+    defineField({
       name: "art",
-      title: "Gradiente CSS do card",
+      title: "Gradiente CSS do card (fallback sem foto)",
       type: "string",
       initialValue: "linear-gradient(135deg,#F6D9E2,#F783AC)",
-      description: "Substituído por foto do produto no futuro",
     }),
   ],
   preview: {

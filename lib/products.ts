@@ -6,28 +6,95 @@ export type Product = {
   old: number | null;
   emoji: string;
   art: string;
+  image: string | null;
   badge: string | null;
   desc: string;
 };
 
-// Catálogo local — vira fallback quando o Sanity estiver configurado.
+// Catálogo Jessi Make (fornecedor) — preço de venda = custo × 2 arredondado.
+// Custo em comentário para referência de margem.
 export const FALLBACK_PRODUCTS: Product[] = [
-  { id: "1", name: "Batom Matte Rouge Intense", cat: "Batom", price: 39.9, old: 59.9, emoji: "💄", art: "linear-gradient(135deg,#F6D9E2,#F783AC)", badge: "-33%", desc: "Cor intensa em uma passada, acabamento matte aveludado que não resseca. Dura até 8 horas sem retoque — sobrevive ao café, ao beijo e à reunião." },
-  { id: "2", name: "Batom Líquido Velvet Nude", cat: "Batom", price: 34.9, old: null, emoji: "👄", art: "linear-gradient(135deg,#FFE8D9,#EFA98C)", badge: null, desc: "O nude perfeito existe: quente, confortável e com efeito 'minha boca, só que melhor'. Textura líquida que seca em segundos." },
-  { id: "3", name: "Base Fluida HD 24h", cat: "Base", price: 79.9, old: 99.9, emoji: "🧴", art: "linear-gradient(135deg,#FDF0E0,#E6C39A)", badge: "-20%", desc: "Cobertura média construível com acabamento natural de pele real. Fórmula oil-free com ácido hialurônico, em 20 tons." },
-  { id: "4", name: "Corretivo Alta Cobertura", cat: "Base", price: 45.9, old: null, emoji: "🖌️", art: "linear-gradient(135deg,#FFF3E2,#F1D3AE)", badge: null, desc: "Apaga olheira, cobre marquinha e não craquela. Aplicador em esponja de precisão para chegar onde precisa." },
-  { id: "5", name: "Paleta de Sombras Sunset", cat: "Sombra", price: 89.9, old: 129.9, emoji: "🎨", art: "linear-gradient(135deg,#FFD8A8,#E8590C)", badge: "Best-seller", desc: "12 tons quentes entre o dourado e o terracota — matte, shimmer e metálico. Pigmentação de estúdio, esfumado sem esforço." },
-  { id: "6", name: "Sombra Glitter Champagne", cat: "Sombra", price: 29.9, old: null, emoji: "✨", art: "linear-gradient(135deg,#FFF6DC,#C79A4B)", badge: null, desc: "Glitter cremoso que não migra e não precisa de cola. Um toque no centro da pálpebra e o look muda de nível." },
-  { id: "7", name: "Máscara de Cílios Volume Max", cat: "Olhos", price: 49.9, old: 69.9, emoji: "👁️", art: "linear-gradient(135deg,#E5DBFF,#7048E8)", badge: "-28%", desc: "Escova cônica que pega até os cílios do cantinho. Volume dramático sem grumos, resistente à água e à lágrima de filme triste." },
-  { id: "8", name: "Delineador Carimbo Gatinho", cat: "Olhos", price: 32.9, old: null, emoji: "🐈‍⬛", art: "linear-gradient(135deg,#DEE2E6,#495057)", badge: null, desc: "De um lado, caneta de ponta fina; do outro, carimbo do gatinho perfeito. Simetria em 10 segundos, até para quem treme." },
-  { id: "9", name: "Sérum Vitamina C 30ml", cat: "Skincare", price: 69.9, old: 89.9, emoji: "🍊", art: "linear-gradient(135deg,#FFE8CC,#FD7E14)", badge: "-22%", desc: "Vitamina C estabilizada a 10% com ácido ferúlico. Uniformiza o tom, dá aquele glow de pele descansada em 4 semanas." },
-  { id: "10", name: "Hidratante Facial Hialurônico", cat: "Skincare", price: 54.9, old: null, emoji: "💧", art: "linear-gradient(135deg,#D0EBFF,#339AF0)", badge: null, desc: "Gel-creme leve que hidrata 72h sem pesar. Base perfeita para maquiagem — a make desliza e dura mais." },
-  { id: "11", name: "Kit 12 Pincéis Profissionais", cat: "Pincéis", price: 99.9, old: 149.9, emoji: "🖌️", art: "linear-gradient(135deg,#F3E8FF,#B197FC)", badge: "-33%", desc: "Do pincel de base ao de esfumar, cerdas sintéticas macias que não soltam fio. Cabo ergonômico e estojo de viagem incluso." },
-  { id: "12", name: "Esponja de Maquiagem Blend", cat: "Pincéis", price: 19.9, old: null, emoji: "🫧", art: "linear-gradient(135deg,#FCE4EC,#F06595)", badge: null, desc: "Dobra de tamanho na água e aplica base sem desperdiçar produto. Ponta de precisão para corretivo e cantinho do olho." },
-  { id: "13", name: "Perfume Fleur de Rose 50ml", cat: "Perfume", price: 129.9, old: 169.9, emoji: "🌹", art: "linear-gradient(135deg,#F6D9E2,#9E1C46)", badge: "-24%", desc: "Rosa búlgara, peônia e um fundo de âmbar. Elegante sem ser antigo, marcante sem gritar. Fixação de 8+ horas." },
-  { id: "14", name: "Body Splash Baunilha", cat: "Perfume", price: 44.9, old: null, emoji: "🌸", art: "linear-gradient(135deg,#FFF0F3,#E64980)", badge: null, desc: "Baunilha cremosa com toque de flor de cerejeira. Aquele cheiro de 'acabou de sair do banho' que rende elogio." },
-  { id: "15", name: "Blush Compacto Pêssego", cat: "Rosto", price: 36.9, old: 49.9, emoji: "🍑", art: "linear-gradient(135deg,#FFE3D5,#FF922B)", badge: "-26%", desc: "O tom exato de bochecha corada de frio. Textura sedosa que esfuma com o dedo e dura o dia todo." },
-  { id: "16", name: "Iluminador Glow Dourado", cat: "Rosto", price: 42.9, old: null, emoji: "🌟", art: "linear-gradient(135deg,#FFF9DB,#FAB005)", badge: null, desc: "Glow molhado sem parecer suor. Partículas finas que refletem luz na medida — de dia sutil, à noite estratégico." },
+  {
+    id: "1",
+    name: "Kit c/3 Sabonete Hidratante Mãos e Corpo — Extrato de Algodão · Mia Make",
+    cat: "Corpo", price: 33.9, old: null, // custo 16,80
+    emoji: "🧼", art: "linear-gradient(135deg,#FDF0E0,#E6C39A)",
+    image: "https://ecoms1-nyc3.nyc3.cdn.digitaloceanspaces.com/1225/@v3/1776258349439-pinac33.jpg",
+    badge: "Kit c/3",
+    desc: "Trio de sabonetes com extrato de algodão que limpa sem ressecar. Espuma cremosa, perfume suave de roupa limpa — mãos e corpo macios o dia todo.",
+  },
+  {
+    id: "2",
+    name: "Pó Compacto Matte Vegano · Max Love",
+    cat: "Rosto", price: 5.99, old: null, // custo 2,99
+    emoji: "🪞", art: "linear-gradient(135deg,#FFE8D9,#EFA98C)",
+    image: "https://ecoms1-nyc3.nyc3.cdn.digitaloceanspaces.com/1225/@v3/1668182496557-1.png",
+    badge: "Vegano",
+    desc: "Acabamento matte sequinho que segura o brilho por horas. Fórmula vegana, textura fininha que não marca linhas — o queridinho do retoque rápido.",
+  },
+  {
+    id: "3",
+    name: "Esfoliante Corporal Morango 200ml",
+    cat: "Corpo", price: 14.9, old: null, // custo 7,20
+    emoji: "🍓", art: "linear-gradient(135deg,#FCE4EC,#F06595)",
+    image: "https://ecoms1-nyc3.nyc3.cdn.digitaloceanspaces.com/1225/@v3/1720452637673-esfoliantemorango.jpg",
+    badge: null,
+    desc: "Esfoliação suave com cheirinho de morango que renova a pele sem agredir. Use no banho 2x por semana e sinta a diferença na primeira vez.",
+  },
+  {
+    id: "4",
+    name: "Kit c/3 Depilador de Cristal Indolor — Cores Sortidas",
+    cat: "Corpo", price: 59.9, old: null, // custo 29,90
+    emoji: "💎", art: "linear-gradient(135deg,#E5DBFF,#B197FC)",
+    image: "https://ecoms1-nyc3.nyc3.cdn.digitaloceanspaces.com/1225/@v3/1664382295593-530e03510daa2e15e6a222689ea55ee5.jpg",
+    badge: "Kit c/3",
+    desc: "Depilação sem dor, sem cera e sem lâmina: o cristal remove os pelos por fricção suave e ainda esfolia. Reutilizável e lavável.",
+  },
+  {
+    id: "5",
+    name: "Kit c/3 Gel Beijável para Virilha 180g Menta · Phállebeauty",
+    cat: "Corpo", price: 59.9, old: null, // custo 29,97
+    emoji: "🌿", art: "linear-gradient(135deg,#D3F3DF,#4CAF7D)",
+    image: "https://ecoms1-nyc3.nyc3.cdn.digitaloceanspaces.com/1225/@v3/1747859080468-gel1.jpg",
+    badge: "Kit c/3",
+    desc: "Gel aromatizante refrescante de menta, dermatologicamente testado. Sensação gelada, perfume leve e toque seco.",
+  },
+  {
+    id: "6",
+    name: "Progressiva de Chuveiro · Isis Makeup",
+    cat: "Cabelo", price: 15.9, old: null, // custo 7,99
+    emoji: "🚿", art: "linear-gradient(135deg,#D0EBFF,#339AF0)",
+    image: "https://ecoms1-nyc3.nyc3.cdn.digitaloceanspaces.com/1225/@v3/1745581865405-progressiva.jpg",
+    badge: null,
+    desc: "Alisamento e redução de volume direto no banho, sem formol e sem prancha. Aplica, age e enxágua — fios alinhados com brilho de salão.",
+  },
+  {
+    id: "7",
+    name: "Gel Esfoliante Facial com Pedras Vulcânicas · Dermachem",
+    cat: "Skincare", price: 14.9, old: null, // custo 7,11
+    emoji: "🌋", art: "linear-gradient(135deg,#FFE8CC,#FD7E14)",
+    image: "https://ecoms1-nyc3.nyc3.cdn.digitaloceanspaces.com/1225/@v3/1615250526463-9c99c0c523b1ab4d88d0d77856386ffeawsaccesskeyidakiatclmsgfx4g7qtfvdexpires1615855324signaturebmi5akxdy1liqnknwiteygdr2li3d.jpg",
+    badge: null,
+    desc: "Micropartículas de pedras vulcânicas que desobstruem os poros e removem células mortas. Pele lisa e luminosa sem ressecar.",
+  },
+  {
+    id: "8",
+    name: "Paleta de Sombras Matte Seu Estilo · Ludurana",
+    cat: "Sombra", price: 19.9, old: null, // custo 10,24
+    emoji: "🎨", art: "linear-gradient(135deg,#FFD8A8,#E8590C)",
+    image: "https://ecoms1-nyc3.nyc3.cdn.digitaloceanspaces.com/1225/@v3/1650910821622-b002213.png",
+    badge: "Best-seller",
+    desc: "Tons matte versáteis do neutro ao marcante, com pigmentação de verdade e esfumado fácil. Do look de trabalho à balada com uma paleta só.",
+  },
+  {
+    id: "9",
+    name: "Kit c/6 Batom Mágico Colorido · Vivai",
+    cat: "Batom", price: 21.9, old: null, // custo 11,22
+    emoji: "💄", art: "linear-gradient(135deg,#F6D9E2,#F783AC)",
+    image: "https://ecoms1-nyc3.nyc3.cdn.digitaloceanspaces.com/1225/@v3/1701691966436-h.png",
+    badge: "Kit c/6",
+    desc: "O batom que muda de cor com o pH da sua pele: aplica colorido, vira um rosa único seu. Kit com 6 — um para cada bolsa, nécessaire e humor.",
+  },
 ];
 
 // Sanity quando configurado (SANITY_PROJECT_ID no env), senão catálogo local.
@@ -43,7 +110,7 @@ export async function getProducts(): Promise<Product[]> {
   });
   const query = `*[_type == "product" && stock > 0] | order(name asc) {
     "id": _id, name, "cat": category, price, "old": oldPrice,
-    emoji, art, badge, "desc": description
+    emoji, art, "image": imageUrl, badge, "desc": description
   }`;
   return client.fetch<Product[]>(query);
 }

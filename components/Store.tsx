@@ -215,10 +215,12 @@ export default function Store({ products }: { products: Product[] }) {
         {filtered.length === 0 && <p className="empty">Nenhum produto encontrado…</p>}
         {filtered.map((p, i) => (
           <article className="card" key={p.id} style={{ transitionDelay: `${Math.min(i * 55, 440)}ms` }}>
-            <div className="card-art" style={{ background: p.art }}
+            <div className={`card-art${p.image ? " has-photo" : ""}`} style={{ background: p.image ? "#fff" : p.art }}
               onClick={(e) => { if (!(e.target as HTMLElement).closest(".quick-view")) openModal(p); }}>
               {p.badge && <span className="badge">{p.badge}</span>}
-              <span className="emoji">{p.emoji}</span>
+              {p.image
+                ? <img className="photo" src={p.image} alt={p.name} loading="lazy" />
+                : <span className="emoji">{p.emoji}</span>}
               <button className="quick-view" onClick={() => openModal(p)}>Ver detalhes</button>
             </div>
             <div className="card-body">
@@ -261,7 +263,11 @@ export default function Store({ products }: { products: Product[] }) {
         {modalProduct && (
           <>
             <button className="modal-close" onClick={() => setModalProduct(null)} aria-label="Fechar">×</button>
-            <div className="modal-art" style={{ background: modalProduct.art }}>{modalProduct.emoji}</div>
+            <div className="modal-art" style={{ background: modalProduct.image ? "#fff" : modalProduct.art }}>
+              {modalProduct.image
+                ? <img className="photo" src={modalProduct.image} alt={modalProduct.name} />
+                : modalProduct.emoji}
+            </div>
             <div className="modal-info">
               <span className="card-cat">{modalProduct.cat}</span>
               <h3>{modalProduct.name}</h3>
@@ -308,7 +314,9 @@ export default function Store({ products }: { products: Product[] }) {
             const p = byId(id);
             return (
               <div className="cart-item" key={id}>
-                <div className="thumb" style={{ background: p.art }}>{p.emoji}</div>
+                <div className="thumb" style={{ background: p.image ? "#fff" : p.art }}>
+                  {p.image ? <img className="photo" src={p.image} alt="" /> : p.emoji}
+                </div>
                 <div style={{ flex: 1 }}>
                   <h4>{p.name}</h4>
                   <span className="item-price">{brl(p.price)}</span>
