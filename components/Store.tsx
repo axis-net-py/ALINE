@@ -197,7 +197,7 @@ export default function Store({ products }: { products: Product[] }) {
         ? `\nFrete (${selectedShipping.company} ${selectedShipping.name}): ${freeShipping ? "Grátis" : brl(selectedShipping.price)}`
         : "";
       const msg = encodeURIComponent(`Olá! Quero finalizar meu pedido:\n\n${lines.join("\n")}${shippingLine}\n\nTotal: ${brl(grandTotal)}`);
-      window.open(`https://wa.me/5500000000000?text=${msg}`, "_blank");
+      window.open(`https://wa.me/5569992402952?text=${msg}`, "_blank");
     } finally {
       setCheckingOut(false);
     }
@@ -256,8 +256,8 @@ export default function Store({ products }: { products: Product[] }) {
             <span key={i}>
               <span>Frete grátis acima de R$199</span><em>✦</em>
               <span>Até 40% off em batons</span><em>✦</em>
-              <span>6x sem juros</span><em>✦</em>
-              <span>Pix com 5% de desconto</span><em>✦</em>
+              <span>Pix e cartão · pagamento seguro</span><em>✦</em>
+              <span>Novidades toda semana</span><em>✦</em>
             </span>
           ))}
         </div>
@@ -305,7 +305,7 @@ export default function Store({ products }: { products: Product[] }) {
         <div className="benefits-inner">
           {[
             ["(01)", "Frete grátis", "Acima de R$199 para todo o Brasil. Rastreio em tempo real do pedido até a sua porta."],
-            ["(02)", "6x sem juros", "Parcele no cartão sem taxa. Pix com 5% de desconto em qualquer compra."],
+            ["(02)", "Pix ou cartão", "Pague do seu jeito, com a segurança do Stripe em cada compra."],
             ["(03)", "Cruelty free", "Só trabalhamos com marcas que não testam em animais. Beleza sem culpa."],
             ["(04)", "Troca fácil", "Não amou? Devolução gratuita em até 30 dias, sem perguntas."],
           ].map(([num, h, p]) => (
@@ -339,9 +339,6 @@ export default function Store({ products }: { products: Product[] }) {
               <div className="modal-price">
                 <strong>{brl(modalProduct.price)}</strong>
                 {modalProduct.old && <s>{brl(modalProduct.old)}</s>}
-                <span className="installments">
-                  ou 6x de {brl(modalProduct.price / 6)} sem juros · Pix {brl(modalProduct.price * 0.95)}
-                </span>
               </div>
               <div className="modal-qty">
                 <button onClick={() => setModalQty(Math.max(1, modalQty - 1))} aria-label="Diminuir">−</button>

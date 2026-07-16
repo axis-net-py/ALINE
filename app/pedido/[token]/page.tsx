@@ -63,6 +63,13 @@ export default async function Pedido({ params }: { params: Promise<{ token: stri
           </div>
         )}
 
+        {order.address_line1 && (
+          <div className="tracking">
+            <strong>Entregar em:</strong> {order.address_line1}{order.address_line2 && `, ${order.address_line2}`} —{" "}
+            {order.address_city}/{order.address_state}, CEP {order.address_postal_code}
+          </div>
+        )}
+
         <div className="order-items">
           {order.order_items?.map((i, n) => (
             <div className="order-item" key={n}>

@@ -315,6 +315,8 @@ footer{background:var(--ink);color:var(--cream);padding:6rem 2rem 2.5rem;positio
 .admin-order summary{display:flex;align-items:center;gap:1rem;padding:1rem 1.2rem;cursor:pointer;flex-wrap:wrap;font-size:.92rem;list-style:none}
 .admin-order summary::-webkit-details-marker{display:none}
 .admin-order-body{padding:0 1.2rem 1.2rem;border-top:1px dashed rgba(30,14,22,.12)}
+.admin-address{background:var(--cream);border-radius:10px;padding:.7rem .9rem;font-size:.88rem;line-height:1.55;margin:.7rem 0}
+.admin-warn-inline{margin:.7rem 0;padding:.55rem .8rem;font-size:.82rem}
 .admin-order-body ul{list-style:none;padding:.9rem 0;font-size:.9rem;display:flex;flex-direction:column;gap:.3rem}
 .admin-form{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin-top:.5rem}
 .admin-form select,.admin-form input{border:1.5px solid rgba(30,14,22,.2);border-radius:10px;padding:.55rem .8rem;font:inherit;font-size:.88rem;background:var(--cream)}

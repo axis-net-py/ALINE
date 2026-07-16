@@ -15,6 +15,13 @@ export type Order = {
   shipping_price: number;
   shipping_service: string | null;
   shipping_cep: string | null;
+  customer_phone: string | null;
+  address_name: string | null;
+  address_line1: string | null;
+  address_line2: string | null;
+  address_city: string | null;
+  address_state: string | null;
+  address_postal_code: string | null;
   created_at: string;
   updated_at: string;
   order_items: OrderItem[];
@@ -89,19 +96,43 @@ export async function listOrders(): Promise<Order[]> {
   return rows.map(normalize);
 }
 
-// Webhook: dados de pagamento. Status só muda se informado.
+export type CollectedAddress = {
+  name: string | null;
+  phone: string | null;
+  line1: string | null;
+  line2: string | null;
+  city: string | null;
+  state: string | null;
+  postal_code: string | null;
+} | null;
+
+// Webhook: dados de pagamento + endereço coletado pelo Stripe Checkout.
+// Status só muda se informado; campos ausentes preservam o valor atual.
 export async function updateOrderPayment(
   id: string,
-  fields: { payment_id: string; customer_email: string | null; status?: OrderStatus }
+  fields: {
+    payment_id: string;
+    customer_email: string | null;
+    status?: OrderStatus;
+    address?: CollectedAddress;
+  }
 ) {
   const sql = db();
   if (!sql) return;
+  const a = fields.address ?? null;
   try {
     await sql`
       update orders set
         payment_id = ${fields.payment_id},
         customer_email = coalesce(${fields.customer_email}, customer_email),
         status = coalesce(${fields.status ?? null}, status),
+        customer_phone = coalesce(${a?.phone ?? null}, customer_phone),
+        address_name = coalesce(${a?.name ?? null}, address_name),
+        address_line1 = coalesce(${a?.line1 ?? null}, address_line1),
+        address_line2 = coalesce(${a?.line2 ?? null}, address_line2),
+        address_city = coalesce(${a?.city ?? null}, address_city),
+        address_state = coalesce(${a?.state ?? null}, address_state),
+        address_postal_code = coalesce(${a?.postal_code ?? null}, address_postal_code),
         updated_at = now()
       where id = ${id}::uuid
     `;

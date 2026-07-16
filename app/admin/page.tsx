@@ -59,10 +59,21 @@ export default async function Admin({ searchParams }: { searchParams: Promise<{ 
                   <li key={n}>{i.qty}x {i.name} — {brl(i.unit_price * i.qty)}</li>
                 ))}
               </ul>
+              {o.address_line1 ? (
+                <p className="admin-address">
+                  📍 {o.address_name}
+                  {o.customer_phone && ` · ${o.customer_phone}`}
+                  <br />
+                  {o.address_line1}{o.address_line2 && `, ${o.address_line2}`}
+                  <br />
+                  {o.address_city} - {o.address_state} · CEP {o.address_postal_code}
+                </p>
+              ) : (
+                <p className="admin-warn admin-warn-inline">Sem endereço de entrega registrado ainda.</p>
+              )}
               {o.shipping_service && (
                 <p className="muted">
                   Frete: {o.shipping_service} — {o.shipping_price > 0 ? brl(o.shipping_price) : "grátis"}
-                  {o.shipping_cep && ` · CEP ${o.shipping_cep}`}
                 </p>
               )}
               {o.customer_email && <p className="muted">Cliente: {o.customer_email}</p>}

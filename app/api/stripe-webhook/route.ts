@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { stripe } from "@/lib/stripe";
-import { updateOrderPayment } from "@/lib/orders";
+import { updateOrderPayment, type CollectedAddress } from "@/lib/orders";
 
 // Webhook do Stripe: checkout.session.completed cobre cartão (paga na
 // hora); Pix e outros métodos assíncronos só confirmam via
@@ -28,24 +28,30 @@ export async function POST(req: Request) {
   const orderId = session.metadata?.order_id;
 
   if (orderId) {
+    const shipping = session.collected_information?.shipping_details;
+    const address: CollectedAddress = shipping
+      ? {
+          name: shipping.name ?? null,
+          phone: session.customer_details?.phone ?? null,
+          line1: shipping.address?.line1 ?? null,
+          line2: shipping.address?.line2 ?? null,
+          city: shipping.address?.city ?? null,
+          state: shipping.address?.state ?? null,
+          postal_code: shipping.address?.postal_code ?? null,
+        }
+      : null;
+    const base = {
+      payment_id: String(session.payment_intent ?? session.id),
+      customer_email: session.customer_details?.email ?? null,
+      address,
+    };
+
     if (event.type === "checkout.session.completed" && session.payment_status === "paid") {
-      await updateOrderPayment(orderId, {
-        payment_id: String(session.payment_intent ?? session.id),
-        customer_email: session.customer_details?.email ?? null,
-        status: "pago",
-      });
+      await updateOrderPayment(orderId, { ...base, status: "pago" });
     } else if (event.type === "checkout.session.async_payment_succeeded") {
-      await updateOrderPayment(orderId, {
-        payment_id: String(session.payment_intent ?? session.id),
-        customer_email: session.customer_details?.email ?? null,
-        status: "pago",
-      });
+      await updateOrderPayment(orderId, { ...base, status: "pago" });
     } else if (event.type === "checkout.session.async_payment_failed") {
-      await updateOrderPayment(orderId, {
-        payment_id: String(session.payment_intent ?? session.id),
-        customer_email: session.customer_details?.email ?? null,
-        status: "cancelado",
-      });
+      await updateOrderPayment(orderId, { ...base, status: "cancelado" });
     }
   }
 

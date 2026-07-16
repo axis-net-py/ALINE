@@ -91,6 +91,8 @@ export async function POST(req: Request) {
       // payment_method_types omitido de propósito: métodos habilitados
       // no Dashboard (Settings → Payment methods) decidem o que aparece
       locale: "pt-BR",
+      shipping_address_collection: { allowed_countries: ["BR"] },
+      phone_number_collection: { enabled: true },
       metadata: order ? { order_id: order.id } : {},
       success_url: `${site}/obrigado?status=success${tokenParam}`,
       cancel_url: `${site}/obrigado?status=failure${tokenParam}`,
