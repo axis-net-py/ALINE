@@ -10,7 +10,7 @@ export type Order = {
   total: number;
   customer_name: string | null;
   customer_email: string | null;
-  mp_payment_id: string | null;
+  payment_id: string | null;
   tracking_code: string | null;
   shipping_price: number;
   shipping_service: string | null;
@@ -92,14 +92,14 @@ export async function listOrders(): Promise<Order[]> {
 // Webhook: dados de pagamento. Status só muda se informado.
 export async function updateOrderPayment(
   id: string,
-  fields: { mp_payment_id: string; customer_email: string | null; status?: OrderStatus }
+  fields: { payment_id: string; customer_email: string | null; status?: OrderStatus }
 ) {
   const sql = db();
   if (!sql) return;
   try {
     await sql`
       update orders set
-        mp_payment_id = ${fields.mp_payment_id},
+        payment_id = ${fields.payment_id},
         customer_email = coalesce(${fields.customer_email}, customer_email),
         status = coalesce(${fields.status ?? null}, status),
         updated_at = now()

@@ -176,7 +176,7 @@ export default function Store({ products }: { products: Product[] }) {
   // se a cotação trouxe opções, o cliente precisa escolher uma antes de pagar
   const shippingPending = !!shippingOptions && shippingOptions.length > 0 && !selectedShippingId;
 
-  /* checkout: Mercado Pago; fallback WhatsApp se não configurado */
+  /* checkout: Stripe Checkout; fallback WhatsApp se não configurado */
   const checkout = async () => {
     setCheckingOut(true);
     try {
@@ -190,8 +190,8 @@ export default function Store({ products }: { products: Product[] }) {
         }),
       });
       const data = await res.json();
-      if (res.ok && data.init_point) { window.location.href = data.init_point; return; }
-      /* MP não configurado: WhatsApp */
+      if (res.ok && data.url) { window.location.href = data.url; return; }
+      /* Stripe não configurado: WhatsApp */
       const lines = Object.entries(cart).map(([id, q]) => `• ${q}x ${byId(id).name} — ${brl(byId(id).price * q)}`);
       const shippingLine = selectedShipping
         ? `\nFrete (${selectedShipping.company} ${selectedShipping.name}): ${freeShipping ? "Grátis" : brl(selectedShipping.price)}`
@@ -430,7 +430,7 @@ export default function Store({ products }: { products: Product[] }) {
           <button className="checkout" disabled={count === 0 || checkingOut || shippingPending} data-hover onClick={checkout}>
             <span>{checkingOut ? "Preparando pagamento…" : shippingPending ? "Escolha o frete" : "Finalizar compra"}</span>
           </button>
-          <p className="checkout-note">Pix, boleto e cartão em até 6x · pagamento seguro via Mercado Pago</p>
+          <p className="checkout-note">Pix e cartão de crédito · pagamento seguro via Stripe</p>
         </div>
       </aside>
 

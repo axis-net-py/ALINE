@@ -2,15 +2,16 @@ import { NextResponse } from "next/server";
 import { getProducts } from "@/lib/products";
 import { createOrder } from "@/lib/orders";
 import { calculateShipping } from "@/lib/shipping";
+import { stripe, INTEGRATION_IDENTIFIER } from "@/lib/stripe";
 
 const FREE_SHIP = 199;
 
-// Cria uma preference no Mercado Pago (Checkout Pro) e devolve a URL
-// de pagamento. Preços SEMPRE do catálogo do servidor — nunca do cliente.
+// Cria uma Checkout Session no Stripe e devolve a URL de pagamento.
+// Preços SEMPRE do catálogo do servidor — nunca do cliente.
 export async function POST(req: Request) {
-  const token = process.env.MERCADOPAGO_ACCESS_TOKEN;
-  if (!token) {
-    return NextResponse.json({ error: "mp_not_configured" }, { status: 503 });
+  const client = stripe();
+  if (!client) {
+    return NextResponse.json({ error: "stripe_not_configured" }, { status: 503 });
   }
 
   let body: {
@@ -28,23 +29,18 @@ export async function POST(req: Request) {
   }
 
   const catalog = await getProducts();
-  const mpItems = [];
+  type Line = { id: string; title: string; quantity: number; unit_price: number };
+  const lines: Line[] = [];
   for (const { id, qty } of items) {
     const p = catalog.find((c) => c.id === String(id));
     const q = Number(qty);
     if (!p || !Number.isInteger(q) || q < 1 || q > 99) {
       return NextResponse.json({ error: "invalid_item", id }, { status: 400 });
     }
-    mpItems.push({
-      id: p.id,
-      title: p.name,
-      quantity: q,
-      currency_id: "BRL",
-      unit_price: p.price,
-    });
+    lines.push({ id: p.id, title: p.name, quantity: q, unit_price: p.price });
   }
 
-  const subtotal = mpItems.reduce((s, i) => s + i.unit_price * i.quantity, 0);
+  const subtotal = lines.reduce((s, i) => s + i.unit_price * i.quantity, 0);
 
   // frete recalculado no servidor a partir da cotação real — nunca
   // confiar no preço que o cliente mandou de volta
@@ -64,21 +60,15 @@ export async function POST(req: Request) {
     shippingLabel = `${option.company} · ${option.name}`;
     shippingCep = body.shipping.cep.replace(/\D/g, "");
     if (shippingPrice > 0) {
-      mpItems.push({
-        id: "frete",
-        title: `Frete — ${shippingLabel}`,
-        quantity: 1,
-        currency_id: "BRL",
-        unit_price: Math.round(shippingPrice * 100) / 100,
-      });
+      lines.push({ id: "frete", title: `Frete — ${shippingLabel}`, quantity: 1, unit_price: shippingPrice });
     }
   }
 
-  const total = mpItems.reduce((s, i) => s + i.unit_price * i.quantity, 0);
+  const total = lines.reduce((s, i) => s + i.unit_price * i.quantity, 0);
 
   // pedido criado antes do pagamento; webhook promove pendente → pago
   const order = await createOrder(
-    mpItems
+    lines
       .filter((i) => i.id !== "frete")
       .map((i) => ({ product_id: i.id, name: i.title, qty: i.quantity, unit_price: i.unit_price })),
     Math.round(total * 100) / 100,
@@ -87,29 +77,29 @@ export async function POST(req: Request) {
   const tokenParam = order ? `&pedido=${order.token}` : "";
 
   const site = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3200";
-  const res = await fetch("https://api.mercadopago.com/checkout/preferences", {
-    method: "POST",
-    headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
-    body: JSON.stringify({
-      items: mpItems,
-      external_reference: order?.id,
-      back_urls: {
-        success: `${site}/obrigado?status=success${tokenParam}`,
-        pending: `${site}/obrigado?status=pending${tokenParam}`,
-        failure: `${site}/obrigado?status=failure${tokenParam}`,
-      },
-      auto_return: "approved",
-      notification_url: `${site}/api/mp-webhook`,
-      statement_descriptor: "ALINE",
-    }),
-  });
-
-  if (!res.ok) {
-    console.error("MP preference error:", res.status, await res.text());
-    return NextResponse.json({ error: "mp_error" }, { status: 502 });
+  try {
+    const session = await client.checkout.sessions.create({
+      mode: "payment",
+      line_items: lines.map((i) => ({
+        quantity: i.quantity,
+        price_data: {
+          currency: "brl",
+          unit_amount: Math.round(i.unit_price * 100),
+          product_data: { name: i.title },
+        },
+      })),
+      // payment_method_types omitido de propósito: métodos habilitados
+      // no Dashboard (Settings → Payment methods) decidem o que aparece
+      locale: "pt-BR",
+      metadata: order ? { order_id: order.id } : {},
+      success_url: `${site}/obrigado?status=success${tokenParam}`,
+      cancel_url: `${site}/obrigado?status=failure${tokenParam}`,
+      integration_identifier: INTEGRATION_IDENTIFIER,
+    });
+    if (!session.url) return NextResponse.json({ error: "stripe_error" }, { status: 502 });
+    return NextResponse.json({ url: session.url });
+  } catch (e) {
+    console.error("Stripe checkout session error:", e);
+    return NextResponse.json({ error: "stripe_error" }, { status: 502 });
   }
-  const pref = await res.json();
-  // sandbox_init_point para testes; init_point em produção
-  const useSandbox = token.startsWith("TEST-");
-  return NextResponse.json({ init_point: useSandbox ? pref.sandbox_init_point : pref.init_point });
 }
