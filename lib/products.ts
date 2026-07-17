@@ -209,6 +209,42 @@ export const FALLBACK_PRODUCTS: Product[] = [
     badge: "Kit c/3",
     desc: "Espuma leve com aquele cheirinho refrescante de melancia. Trio que rende semanas de banho gostoso sem ressecar a pele.",
   },
+  {
+    id: "23",
+    name: "Perfume Capilar Royal Blanc · Soul Cosméticos",
+    cat: "Cabelo", price: 24.9, old: null, // custo 12,24
+    emoji: "🤍", art: "linear-gradient(135deg,#F1F3F5,#CED4DA)",
+    image: "https://ecoms1-nyc3.nyc3.cdn.digitaloceanspaces.com/1225/@v3/1778171989699-p.c.royal.jpg",
+    badge: null,
+    desc: "Perfuma o cabelo sem pesar nem untar, com fixação que dura o dia todo. Aquele efeito 'saída do salão' com dois sprays.",
+  },
+  {
+    id: "24",
+    name: "Kit c/3 Hidratante Corporal Morango 145g · Porán",
+    cat: "Corpo", price: 46.9, old: null, // custo 23,31
+    emoji: "🍓", art: "linear-gradient(135deg,#FFE0E9,#F783AC)",
+    image: "https://ecoms1-nyc3.nyc3.cdn.digitaloceanspaces.com/1225/@v3/1726926943255-cor177.png",
+    badge: "Kit c/3",
+    desc: "Hidratação rápida sem ficar pegajoso, com aquele cheirinho doce de morango. Trio na bisnaga prática pra bolsa e viagem.",
+  },
+  {
+    id: "25",
+    name: "Kit c/3 Sabonete Bisnaga Melancia 145g · Porán",
+    cat: "Corpo", price: 43.9, old: null, // custo 21,84
+    emoji: "🍉", art: "linear-gradient(135deg,#D3F3DF,#69DB7C)",
+    image: "https://ecoms1-nyc3.nyc3.cdn.digitaloceanspaces.com/1225/@v3/1726922906358-cor194.png",
+    badge: "Kit c/3",
+    desc: "Sabonete líquido em bisnaga fácil de usar no banho ou na bolsa. Espuma leve com o refrescante cheirinho de melancia.",
+  },
+  {
+    id: "26",
+    name: "Gel Anti-Idade Vitamina C 100g · Derma Chem",
+    cat: "Skincare", price: 16.9, old: null, // custo 8,23
+    emoji: "🍊", art: "linear-gradient(135deg,#FFE8CC,#FD7E14)",
+    image: "https://ecoms1-nyc3.nyc3.cdn.digitaloceanspaces.com/1225/@v3/1614305949636-7f2da3a5fa9af17a65e0daf2254815f6awsaccesskeyidakiatclmsgfx4g7qtfvdexpires1614910744signatureeh2fx2fyri3v9pttj2fyplkrravozy3d.jpg",
+    badge: null,
+    desc: "Gel leve com vitamina C que ilumina e ajuda a suavizar linhas finas. Textura que absorve rápido, sem deixar pele oleosa.",
+  },
 ];
 
 // Sanity quando configurado (SANITY_PROJECT_ID no env), senão catálogo local.
