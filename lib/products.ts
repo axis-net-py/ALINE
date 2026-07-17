@@ -245,6 +245,87 @@ export const FALLBACK_PRODUCTS: Product[] = [
     badge: null,
     desc: "Gel leve com vitamina C que ilumina e ajuda a suavizar linhas finas. Textura que absorve rápido, sem deixar pele oleosa.",
   },
+  {
+    id: "27",
+    name: "Esfoliante Corporal Melancia 200ml",
+    cat: "Corpo", price: 14.9, old: null, // custo 7,20
+    emoji: "🍉", art: "linear-gradient(135deg,#D3F3DF,#69DB7C)",
+    image: "https://ecoms1-nyc3.nyc3.cdn.digitaloceanspaces.com/1225/@v3/1720450802838-esfoliantemelanciaf.jpg",
+    badge: null,
+    desc: "Esfoliação suave com cheirinho de melancia que renova a pele sem agredir. Use no banho 2x por semana e sinta a diferença.",
+  },
+  {
+    id: "28",
+    name: "Mousse Micelar Anti Rosa Mosqueta · Soul Skin",
+    cat: "Skincare", price: 20.9, old: null, // custo 10,20
+    emoji: "🌸", art: "linear-gradient(135deg,#FFE3EC,#F783AC)",
+    image: "https://ecoms1-nyc3.nyc3.cdn.digitaloceanspaces.com/1225/@v3/1778079586366-m.rm.jpg",
+    badge: null,
+    desc: "Espuma leve que limpa e remove maquiagem em um passo, com rosa mosqueta pra cuidar da pele enquanto limpa. Sem precisar enxaguar.",
+  },
+  {
+    id: "29",
+    name: "Esfoliante Corpo e Rosto Melancia · Babasoul",
+    cat: "Skincare", price: 17.9, old: null, // custo 9,01
+    emoji: "🍉", art: "linear-gradient(135deg,#D3F3DF,#69DB7C)",
+    image: "https://ecoms1-nyc3.nyc3.cdn.digitaloceanspaces.com/1225/@v3/1778094725902-c.rmel.jpg",
+    badge: null,
+    desc: "Esfoliante multiuso pra rosto e corpo, textura macia que renova a pele sem ressecar. Cheirinho gostoso de melancia.",
+  },
+  {
+    id: "30",
+    name: "Esfoliante Corpo e Rosto Tutti-Frutti · Babasoul",
+    cat: "Skincare", price: 17.9, old: null, // custo 9,01
+    emoji: "🍇", art: "linear-gradient(135deg,#F3E8FF,#B197FC)",
+    image: "https://ecoms1-nyc3.nyc3.cdn.digitaloceanspaces.com/1225/@v3/1778097251505-c.rtut.jpg",
+    badge: null,
+    desc: "Esfoliante multiuso pra rosto e corpo com aquele cheirinho doce de balas tutti-frutti. Renova a pele sem ressecar.",
+  },
+  {
+    id: "31",
+    name: "Deo Colônia Eforce Sexy 50ml · Soul Cosméticos",
+    cat: "Perfume", price: 21.9, old: null, // custo 10,96
+    emoji: "💋", art: "linear-gradient(135deg,#2B2B2B,#9E1C46)",
+    image: "https://ecoms1-nyc3.nyc3.cdn.digitaloceanspaces.com/1225/@v3/1781282844706-sexy.jpg",
+    badge: null,
+    desc: "Fragrância marcante e envolvente, feita pra deixar rastro por onde passa. Fixação longa numa colônia de bolso.",
+  },
+  {
+    id: "32",
+    name: "Deo Colônia Madeira Oriental 50ml · Soul Cosméticos",
+    cat: "Perfume", price: 21.9, old: null, // custo 10,96
+    emoji: "🌳", art: "linear-gradient(135deg,#E9ECEF,#495057)",
+    image: "https://ecoms1-nyc3.nyc3.cdn.digitaloceanspaces.com/1225/@v3/1781281334672-madeira.jpg",
+    badge: null,
+    desc: "Notas amadeiradas e orientais, sofisticado sem ser pesado. Combina com qualquer hora do dia.",
+  },
+  {
+    id: "33",
+    name: "Gelatina Capilar Moranguinho · Babasoul",
+    cat: "Cabelo", price: 21.9, old: null, // custo 10,63
+    emoji: "🍓", art: "linear-gradient(135deg,#FFE0E9,#F783AC)",
+    image: "https://ecoms1-nyc3.nyc3.cdn.digitaloceanspaces.com/1225/@v3/1778073253261-g.morp.jpg",
+    badge: null,
+    desc: "Modela e define os fios sem deixar duro nem embolar, com aquele cheirinho de morango. Segura o cacho ou penteado o dia todo.",
+  },
+  {
+    id: "34",
+    name: "Kit c/3 Esfoliante Hidratante Bumbum Lisinho · Soul Cosméticos",
+    cat: "Corpo", price: 47.9, old: null, // custo 23,85
+    emoji: "🍑", art: "linear-gradient(135deg,#FFE3D5,#FF922B)",
+    image: "https://ecoms1-nyc3.nyc3.cdn.digitaloceanspaces.com/1225/@v3/1778089078141-e.h.bblc3.jpg",
+    badge: "Kit c/3",
+    desc: "Dupla de esfoliação e hidratação pensada pra deixar a pele do bumbum lisinha e uniforme. Rotina completa em um kit.",
+  },
+  {
+    id: "35",
+    name: "Deo Colônia Nº2 Sensual 50ml · Soul Cosméticos",
+    cat: "Perfume", price: 21.9, old: null, // custo 10,96
+    emoji: "✨", art: "linear-gradient(135deg,#F6D9E2,#F783AC)",
+    image: "https://ecoms1-nyc3.nyc3.cdn.digitaloceanspaces.com/1225/@v3/1781282069677-sensual.jpg",
+    badge: null,
+    desc: "Fragrância floral e sedutora, daquelas que ficam na lembrança. Colônia leve pra usar sem moderação.",
+  },
 ];
 
 // Sanity quando configurado (SANITY_PROJECT_ID no env), senão catálogo local.
