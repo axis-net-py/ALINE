@@ -263,10 +263,7 @@ export default function Store({ products }: { products: Product[] }) {
           <p className="hero-sub">Curadoria de maquiagens e cosméticos das marcas que você ama. Frete grátis acima de R$199 e novidades toda semana.</p>
           <a className="hero-cta" href="#produtos" data-hover>Explorar loja <span className="circle">↓</span></a>
         </div>
-        <span className="hero-float f1" data-depth="22">
-          <img src="/venus-bust.png" alt="" />
-          <span className="hero-logo-text">VENUSTAS<small>Beauty</small></span>
-        </span>
+        <span className="hero-float f1" data-depth="22"><img src="/venus-bust.png" alt="" /></span>
         <div className="hero-scroll" aria-hidden="true">scroll</div>
       </section>
 

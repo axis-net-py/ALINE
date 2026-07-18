@@ -104,13 +104,10 @@ body.loaded .hero-sub{opacity:1;transform:none}
 body.loaded .hero-cta{opacity:1}
 .hero-cta .circle{width:64px;height:64px;border-radius:50%;background:var(--rose);display:grid;place-items:center;color:#fff;font-size:1.3rem;transition:transform .35s var(--ease),background .3s}
 .hero-cta:hover .circle{transform:scale(1.15) rotate(45deg);background:var(--ink)}
-.hero-float{position:absolute;font-size:clamp(2.5rem,5vw,4.5rem);filter:drop-shadow(0 16px 24px rgba(23,18,14,.25));pointer-events:none;transition:transform .6s cubic-bezier(.2,.8,.2,1);opacity:0;animation:fadeFloat 1s .8s forwards}
+.hero-float{position:absolute;pointer-events:none;transition:transform .6s cubic-bezier(.2,.8,.2,1);opacity:0;animation:fadeFloat 1s .8s forwards}
 @keyframes fadeFloat{to{opacity:1}}
-.hero-float img{width:clamp(200px,24vw,380px);height:auto;display:block;opacity:.9}
-.f1{display:flex;flex-direction:column;align-items:center;gap:1.1rem}
-.hero-logo-text{font-family:var(--font-display);font-weight:500;font-size:clamp(1.5rem,2.4vw,2.4rem);letter-spacing:.22em;margin-right:-.22em;color:var(--ink);display:flex;flex-direction:column;align-items:center;line-height:1}
-.hero-logo-text small{font-family:var(--font-body);font-size:.34em;font-weight:700;letter-spacing:.6em;margin-right:-.6em;text-transform:uppercase;color:var(--rose);margin-top:.55rem;padding-top:.55rem;border-top:1.2px solid var(--gold)}
-.f1{top:16%;right:7%}
+.hero-float img{width:clamp(180px,20vw,320px);height:auto;display:block;opacity:.35;mix-blend-mode:multiply}
+.f1{top:22%;right:8%}
 .hero-scroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(23,18,14,.5);display:flex;flex-direction:column;align-items:center;gap:.6rem}
 .hero-scroll::after{content:"";width:1.5px;height:44px;background:linear-gradient(var(--rose),transparent);animation:drip 1.8s var(--ease) infinite}
 @keyframes drip{from{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}to{transform:scaleY(0);transform-origin:bottom}}
