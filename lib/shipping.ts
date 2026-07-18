@@ -63,7 +63,7 @@ export async function calculateShipping(
 
   return {
     ok: true,
-    options: [{ id: "padrao", name: "Entrega padrão", company: "ALINE", price, days }],
+    options: [{ id: "padrao", name: "Entrega padrão", company: "VENUSTAS", price, days }],
     address: {
       street: data.street || null,
       neighborhood: data.neighborhood || null,

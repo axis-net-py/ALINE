@@ -1,5 +1,5 @@
 {
-  "name": "aline",
+  "name": "venustas",
   "private": true,
   "scripts": {
     "dev": "next dev -p 3200",

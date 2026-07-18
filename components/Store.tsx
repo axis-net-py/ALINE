@@ -90,7 +90,7 @@ export default function Store({ products }: { products: Product[] }) {
   /* localStorage — descarta itens que saíram do catálogo */
   useEffect(() => {
     try {
-      const saved: Cart = JSON.parse(localStorage.getItem("aline-cart") || "{}");
+      const saved: Cart = JSON.parse(localStorage.getItem("venustas-cart") || "{}");
       const valid = Object.fromEntries(
         Object.entries(saved).filter(([id]) => products.some((p) => p.id === id))
       );
@@ -100,7 +100,7 @@ export default function Store({ products }: { products: Product[] }) {
   const persist = (updater: (prev: Cart) => Cart) =>
     setCart((prev) => {
       const c = updater(prev);
-      localStorage.setItem("aline-cart", JSON.stringify(c));
+      localStorage.setItem("venustas-cart", JSON.stringify(c));
       return c;
     });
 
@@ -231,7 +231,13 @@ export default function Store({ products }: { products: Product[] }) {
 
       <header>
         <div className="header-inner">
-          <a className="logo" href="#" data-hover>ALINE<i>.</i></a>
+          <a className="logo" href="#" data-hover>
+            <svg className="logo-mark" viewBox="0 0 48 48" aria-hidden="true">
+              <circle cx="24" cy="24" r="22.5" fill="none" stroke="currentColor" strokeWidth="1.2" />
+              <path d="M24 10c-4.4 0-8 3.6-8 8 0 3.1 1.8 5.8 4.4 7.2-.3 2.6-1.5 4.6-3.4 6.3 2.3.6 4.7.3 7-.9 2.3 1.2 4.7 1.5 7 .9-1.9-1.7-3.1-3.7-3.4-6.3 2.6-1.4 4.4-4.1 4.4-7.2 0-4.4-3.6-8-8-8z" fill="currentColor" opacity=".9" />
+            </svg>
+            <span className="logo-text">VENUSTAS<small>Beauty</small></span>
+          </a>
           <nav className="main-nav">
             <a href="#produtos" data-hover>Produtos</a>
             <a href="#beneficios" data-hover>Por quê nós</a>
@@ -334,7 +340,7 @@ export default function Store({ products }: { products: Product[] }) {
 
       <figure className="quote">
         <blockquote>&ldquo;Maquiagem não é máscara. É <em>assinatura</em>.&rdquo;</blockquote>
-        <figcaption>— Manifesto Aline</figcaption>
+        <figcaption>— Manifesto Venustas</figcaption>
       </figure>
 
       {/* modal quick view */}
@@ -469,9 +475,9 @@ export default function Store({ products }: { products: Product[] }) {
 
       <footer>
         <div className="footer-inner">
-          <div className="footer-big">ALINE.</div>
+          <div className="footer-big">VENUSTAS.</div>
           <div className="footer-row">
-            <span>© 2026 Aline · Loja demonstrativa</span>
+            <span>© 2026 Venustas Beauty · Loja demonstrativa</span>
             <nav>
               <a href="#produtos" data-hover>Produtos</a>
               <a href="#beneficios" data-hover>Benefícios</a>
@@ -489,7 +495,7 @@ function Preloader() {
   useEffect(() => { const t = setTimeout(() => setDone(true), 900); return () => clearTimeout(t); }, []);
   return (
     <div className={`preloader${done ? " done" : ""}`} aria-hidden="true">
-      <h2><span>A</span><span>L</span><span>I</span><span>N</span><span><i>E.</i></span></h2>
+      <h2><span>V</span><span>E</span><span>N</span><span>U</span><span>S</span><span>T</span><span>A</span><span><i>S</i></span></h2>
     </div>
   );
 }

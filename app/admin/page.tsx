@@ -20,7 +20,7 @@ export default async function Admin({ searchParams }: { searchParams: Promise<{ 
   if (!(await isAdmin())) {
     return (
       <div className="status-page"><div className="box">
-        <h1>Painel <em>ALINE</em></h1>
+        <h1>Painel <em>VENUSTAS</em></h1>
         {erro && <p style={{ color: "var(--rose)" }}>Senha incorreta.</p>}
         <form action={login} className="admin-login">
           <input type="password" name="password" placeholder="Senha" autoFocus required />
@@ -36,7 +36,7 @@ export default async function Admin({ searchParams }: { searchParams: Promise<{ 
   return (
     <div className="admin">
       <header className="admin-head">
-        <span className="logo">ALINE<i>.</i> <small>admin</small></span>
+        <span className="logo">VENUSTAS<i>.</i> <small>admin</small></span>
         <form action={logout}><button className="admin-logout">Sair</button></form>
       </header>
 

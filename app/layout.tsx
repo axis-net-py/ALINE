@@ -13,7 +13,7 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "ALINE · Maquiagem & Cosméticos",
+  title: "VENUSTAS Beauty · Maquiagem & Cosméticos",
   description:
     "Loja online de maquiagens e cosméticos. Batons, bases, sombras, skincare e mais — com frete grátis acima de R$199.",
 };

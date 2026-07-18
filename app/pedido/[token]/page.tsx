@@ -32,7 +32,7 @@ export default async function Pedido({ params }: { params: Promise<{ token: stri
   return (
     <div className="order-page">
       <header className="order-head">
-        <Link className="logo" href="/">ALINE<i>.</i></Link>
+        <Link className="logo" href="/">VENUSTAS<i>.</i></Link>
       </header>
       <main className="order-box">
         <span className="card-cat">Pedido #{order.token.slice(0, 8).toUpperCase()}</span>

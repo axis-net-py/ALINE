@@ -1,4 +1,4 @@
-# ALINE — Loja de Maquiagem & Cosméticos
+# VENUSTAS BEAUTY — Loja de Maquiagem & Cosméticos
 
 Next.js + Sanity (catálogo) + checkout com coleta de endereço própria.
 
